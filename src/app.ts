@@ -1,13 +1,25 @@
 import express, { Express } from "express";
-import morgan from "morgan";
 
 import loanRoutes from "./api/v1/routes/loanRoutes";
+import errorHandler from "./api/v1/middleware/errorHandler";
+import { 
+    accessLogger,
+    errorLogger,
+    consoleLogger,
+} from "./api/v1/middleware/logger";
 
 // Initialize Express application
 const app: Express = express();
 
-// Morgan for HTTP request logging
-app.use(morgan("combined"));
+// Logging middleware
+if (process.env.NODE_ENV === "production") {
+    // Log to files
+    app.use(accessLogger);
+    app.use(errorLogger);
+} else {
+    // Log to console
+    app.use(consoleLogger);
+}
 
 // Ensures incoming body is correctly parsed to JSON
 app.use(express.json());
@@ -27,5 +39,8 @@ app.get("/api/v1/health", (req, res) => {
 
 // Import loan route
 app.use("/api/v1/loans", loanRoutes);
+
+// Global error handling middleware
+app.use(errorHandler)
 
 export default app;
