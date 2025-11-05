@@ -6,9 +6,9 @@ import { HTTP_STATUS } from "../../../constants/httpConstants";
 export class AppError extends Error {
     /**
      * Creates a new AppError instance.
-     * @param {string} message - The error message.
-     * @param {string} code - The error code.
-     * @param {number} statusCode - The http response code.
+     * @param message - The error message.
+     * @param code - The error code.
+     * @param statusCode - The http response code.
      */
     constructor(
         public message: string,

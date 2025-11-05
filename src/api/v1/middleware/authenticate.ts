@@ -7,9 +7,9 @@ import { auth } from "../../../config/firebaseConfig";
 
 /**
  * Middleware to authenticate a user using a Firebase ID token.
- * @param {Request} req - The request object.
- * @param {Response} res - The response object.
- * @param {NextFunction} next - The next middleware function.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next middleware function.
  */
 const authenticate = async (
     req: Request,
@@ -36,8 +36,7 @@ const authenticate = async (
         res.locals.uid = decodedToken.uid;
         res.locals.role = decodedToken.role;
 
-        next();
-    
+        next(); 
     } catch (error: unknown) {
         if (error instanceof AuthenticationError) {
             // Re-throw authentication errors to be handled by error middleware
