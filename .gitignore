@@ -1,2 +1,11 @@
+# directories
+.vscode/
 node_modules/
 dist/
+
+# logs
+logs/
+*.log
+
+# firestore
+back-end-dev-rrc-firebase-adminsdk-fbsvc-0a34464590.json
