@@ -1,7 +1,7 @@
 /**
- * Interface representing a standard API response
+ * Interface representing a standard successful API response
  */
-export interface ApiResponse<T> {
+export interface ApiSuccessResponse<T> {
     /** The status of the response, e.g., 'success' or 'error */
     status: string;
 
@@ -19,6 +19,26 @@ export interface ApiResponse<T> {
 }
 
 /**
+ * Interface representing a standard error API response
+ */
+export interface ApiErrorResponse<T> {
+    /** The status of the response, e.g., 'success' or 'error */
+    status?: string;
+
+    /** An error detailing a message and code, if applicable */
+    error?: {
+        /** A message providing additional information about the response */
+        message?: string;
+
+        /** An error code, if applicable */
+        code?: string;
+    };
+
+    /** Timestamp of the response */
+    timestamp?: string;
+}
+
+/**
  * Creates a success response object
  * @param data - The data to include in the response
  * @param message - A message providing additional information about the response
@@ -27,7 +47,7 @@ export interface ApiResponse<T> {
 export const successResponse = <T>(
     data?: T,
     message?: string
-): ApiResponse<T> => ({
+): ApiSuccessResponse<T> => ({
     status: "success",
     data,
     message
@@ -39,11 +59,14 @@ export const successResponse = <T>(
  * @param code - An optional error code for debugging
  * @returns The error response object
  */
-export const errorResponse = (
+export const errorResponse = <T>(
     message: string,
     code?: string
-): ApiResponse<null> => ({
+): ApiErrorResponse<T> => ({
     status: "error",
-    error: message,
-    code
+    error: {
+        message,
+        code,
+    },
+    timestamp: new Date().toISOString(),
 });

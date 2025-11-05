@@ -14,14 +14,9 @@ import {
 const app: Express = express();
 
 // Logging middleware
-if (process.env.NODE_ENV === "production") {
-    // Log to files
-    app.use(accessLogger);
-    app.use(errorLogger);
-} else {
-    // Log to console
-    app.use(consoleLogger);
-}
+app.use(accessLogger);
+app.use(errorLogger);
+app.use(consoleLogger);
 
 // Ensures incoming body is correctly parsed to JSON
 app.use(express.json());
