@@ -40,7 +40,7 @@ describe("Error handling middleware", () => {
         // ASSERT:
         expect(statusMock).toHaveBeenCalledWith(HTTP_STATUS.UNAUTHORIZED);
         expect(jsonMock).toHaveBeenCalledWith({
-            success: false,
+            status: "error",
             error: {
                 message: "Invalid token",
                 code: "TOKEN_INVALID",
@@ -67,7 +67,7 @@ describe("Error handling middleware", () => {
         // ASSERT:
         expect(statusMock).toHaveBeenCalledWith(HTTP_STATUS.FORBIDDEN);
         expect(jsonMock).toHaveBeenCalledWith({
-            success: false,
+            status: "error",
             error: {
                 message: "Insufficient permissions",
                 code: "INSUFFICIENT_ROLE",
@@ -93,7 +93,7 @@ describe("Error handling middleware", () => {
             HTTP_STATUS.INTERNAL_SERVER_ERROR
         );
         expect(jsonMock).toHaveBeenCalledWith({
-            success: false,
+            status: "error",
             error: {
                 message: "An unexpected error occurred",
                 code: "UNKNOWN_ERROR",
@@ -116,7 +116,7 @@ describe("Error handling middleware", () => {
             HTTP_STATUS.INTERNAL_SERVER_ERROR
         );
         expect(jsonMock).toHaveBeenCalledWith({
-            success: false,
+            status: "error",
             error: {
                 message: "An unexpected error occurred",
                 code: "UNKNOWN_ERROR",
@@ -144,7 +144,7 @@ describe("Error handling middleware", () => {
         // ASSERT:
         expect(statusMock).toHaveBeenCalledWith(422);
         expect(jsonMock).toHaveBeenCalledWith({
-            success: false,
+            status: "error",
             error: {
                 message: "Validation failed",
                 code: "VALIDATION_ERROR",
